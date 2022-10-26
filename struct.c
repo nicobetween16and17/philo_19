@@ -37,6 +37,7 @@ void	put_forks(t_philosopher *philo)
 			philo[i].left = &forks[i + 1];
 		}
 	}
+	free(forks);
 }
 
 t_philosopher	new_philo(int i, int ac, char **av)

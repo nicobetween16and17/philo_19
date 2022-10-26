@@ -2,7 +2,7 @@ NAME = philo
 NAME_SAN = philo_data_race_check
 all: $(NAME)
 $(NAME):
-	gcc -Wall -Werror -Wextra main.c struct.c utils.c threads.c -o $(NAME)
+	gcc -Wall -Werror -Wextra main.c struct.c utils.c threads.c leaks_checker/libleaks.a -o $(NAME)
 clean:
 	rm -f *.o
 fclean:	clean
