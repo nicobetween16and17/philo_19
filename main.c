@@ -31,7 +31,7 @@ static void	check_end_flags(int i, int max, t_philosopher *p, pthread_t *thread)
 	while (1)
 	{
 		j = 0;
-		usleep(50);
+		usleep(69);
 		while (++i < max)
 		{
 			if (current_time() - p[i].last_meal > p[0].time_to_die)
@@ -59,13 +59,13 @@ void	ccleaner(int max, t_philosopher *p, pthread_t *t)
 	i = -1;
 	while (++i < max)
 	{
-		pthread_mutex_destroy(p[i].left);
 		pthread_mutex_destroy(p[i].right);
 		pthread_detach(t[i]);
 	}
 }
 
-static void	initialize(t_philosopher *p, char **av, struct timeval *t)
+static void	initialize(t_philosopher *p, char **av,
+	struct timeval *t, pthread_mutex_t *forks)
 {
 	int				i;
 	int				max;
@@ -79,7 +79,7 @@ static void	initialize(t_philosopher *p, char **av, struct timeval *t)
 	while (++i < max)
 		p[i] = new_philo(i, ac, av);
 	add_time(p, t, max);
-	put_forks(p);
+	put_forks(p, forks);
 }
 
 int	main(int ac, char **av)
@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 		return (0);
 	vars.max = ft_atoi(av[1]);
 	gettimeofday(&vars.time, NULL);
-	initialize(vars.philosophers, av, &vars.time);
+	initialize(vars.philosophers, av, &vars.time, vars.forks);
 	vars.i = -1;
 	while (++vars.i < vars.max)
 	{

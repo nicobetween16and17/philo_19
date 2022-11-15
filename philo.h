@@ -43,6 +43,7 @@ typedef struct s_var
 	pthread_mutex_t	lock;
 	t_philosopher	philosophers[210];
 	pthread_t		philo_thread[210];
+	pthread_mutex_t	forks[210];
 	int				i;
 	int				max;
 	struct timeval	time;
@@ -51,7 +52,7 @@ typedef struct s_var
 
 int				ft_atoi(const char *str);
 t_philosopher	new_philo(int i, int ac, char **av);
-void			put_forks(t_philosopher *philo);
+void			put_forks(t_philosopher *philo, pthread_mutex_t *forks);
 void			add_time(t_philosopher *p, struct timeval *time, int max);
 void			*taphilochi(void *data);
 long int		ms(t_philosopher *crt);

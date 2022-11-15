@@ -36,14 +36,11 @@ static void	action_sleep(t_philosopher *crt, int time)
 	long int	start;
 
 	start = current_time();
-	if (!*crt->death)
+	while (current_time() - start <= time)
 	{
-		while (current_time() - start <= time)
-		{
-			if (*crt->death)
-				break ;
-			usleep(50);
-		}
+		if (*crt->death)
+			break ;
+		usleep(69);
 	}
 }
 

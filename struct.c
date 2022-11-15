@@ -12,15 +12,11 @@
 
 #include "philo.h"
 
-void	put_forks(t_philosopher *philo)
+void	put_forks(t_philosopher *philo, pthread_mutex_t *forks)
 {
-	pthread_mutex_t	*forks;
 	int				i;
 
 	i = -1;
-	forks = malloc(sizeof(pthread_mutex_t) * philo[0].n_max);
-	if (!forks)
-		return ;
 	while (++i < philo[0].n_max)
 		pthread_mutex_init(&forks[i], NULL);
 	i = -1;
@@ -37,7 +33,6 @@ void	put_forks(t_philosopher *philo)
 			philo[i].left = &forks[i + 1];
 		}
 	}
-	free(forks);
 }
 
 t_philosopher	new_philo(int i, int ac, char **av)
